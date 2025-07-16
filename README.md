@@ -8,9 +8,9 @@
 
 2. **Запустите сервисы**  
    Откройте терминал в папке проекта и выполните:
-   ```bash
+   
    docker-compose up -d --build
-   ```
+   
 
 3. **Проверьте работу**  
    Откройте в браузере:  
@@ -21,7 +21,7 @@
 
 1. **Через REST API**  
    Выполните в терминале:
-   ```bash
+   
    curl -X POST "http://localhost:8000/events" \
    -H "Content-Type: application/json" \
    -d '{
@@ -30,7 +30,7 @@
      "amount": 100.0,
      "timestamp": "2025-07-16T12:00:00Z"
    }'
-   ```
+   
 
 2. **Правильный формат данных**:
    - `event_type`: строка (пример: "purchase")
@@ -41,17 +41,17 @@
 ## Как проверить данные
 
 1. **В MongoDB**:
-   ```bash
+   
    docker-compose exec mongo mongosh event_hub --eval "db.events.find().pretty()"
-   ```
+   
 
 2. **В Redis**:
-   ```bash
+   
    docker-compose exec redis redis-cli XRANGE events - +
-   ```
+   
 
 3. **Через GraphQL**:
-   ```graphql
+   graphql
    query {
      lastEvents(limit: 5) {
        id
@@ -61,33 +61,23 @@
        timestamp
      }
    }
-   ```
+   
 
 ## Если что-то не работает
 
 1. **Перезапустите сервисы**:
-   ```bash
+   
    docker-compose down
    docker-compose up -d
-   ```
+   
 
 2. **Проверьте логи**:
-   ```bash
+   
    docker-compose logs app  # для FastAPI
    docker-compose logs mongo  # для MongoDB
-   ```
+   
 
 3. **Очистите данные** (если нужно начать заново):
-   ```bash
+
    docker-compose down -v
-   ```
-
-## Полезные команды
-
-| Команда | Описание |
-|---------|----------|
-| `docker-compose ps` | Показать статус сервисов |
-| `docker-compose stop` | Остановить сервисы |
-| `docker-compose restart` | Перезапустить сервисы |
-
-Теперь ваш Event Hub должен работать правильно! 
+   
