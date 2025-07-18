@@ -4,6 +4,4 @@ motor
 strawberry-graphql[fastapi]
 redis
 pydantic
-grpcio
-grpcio-tools
-aiohttp
+aiohttp 

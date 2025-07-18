@@ -6,6 +6,24 @@ services:
     environment:
       MONGO_URI: "mongodb://mongo:27017"
       REDIS_HOST: "redis"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  grpc-server:
+    build: .
+    ports: ["50051:50051"]
+    depends_on: [mongo, redis]
+    environment:
+      MONGO_URI: "mongodb://mongo:27017"
+      REDIS_HOST: "redis"
+    command: python -m app.grpc.server
+
+  metrics-consumer:
+    build: .
+    depends_on: [mongo, redis]
+    environment:
+      MONGO_URI: "mongodb://mongo:27017"
+      REDIS_HOST: "redis"
+    command: python -m consumer.metrics_consumer
 
   mongo:
     image: mongo:6

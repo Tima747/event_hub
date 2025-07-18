@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package event;
+
+service EventService {
+  rpc SendEvent(EventRequest) returns (EventResponse);
+  rpc StreamEvents(StreamRequest) returns (stream EventResponse);
+}
+
+message EventRequest {
+  string user_id = 1;
+  string event_type = 2;
+  double amount = 3;
+  string timestamp = 4;
+}
+
+message EventResponse {
+  string event_id = 1;
+  string status = 2;
+  string message = 3;
+}
+
+message StreamRequest {
+  int32 limit = 1;
+} 
